@@ -1,0 +1,61 @@
+body {
+    font-family: 'Noto Serif SC', serif;
+    font-size: larger;
+}
+
+.mdui-panel-item-header{
+    font-size: x-large;
+}
+
+.mdui-btn{
+    font-size: large;
+}
+
+.setting-icon{
+    padding-bottom: 6px;
+    padding-right: 10px;
+    padding-left: 6px;
+}
+
+#radio-group{
+    padding-left: 20px;
+}
+
+#input-group{
+    padding-left: 30px;
+}
+
+#shuffle-i{
+    padding-bottom: 3px;
+    padding-right: 10px;
+    padding-left: 6px;
+}
+
+.mdui-drawer .mdui-card{
+    margin-top: 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    /* background-color: pink; */
+}
+
+.mdui-panel-item {
+    border-bottom: 0px !important;
+    margin-bottom: 5px !important;
+}
+
+.mdui-table td{
+    font-size: large !important;
+}
+
+.mdui-snackbar-text {
+    font-size: large;
+}
+
+.mdui-snackbar {
+    background-color: teal !important;
+}
+
+.mdui-dialog-content{
+    font-size: large;
+}
+

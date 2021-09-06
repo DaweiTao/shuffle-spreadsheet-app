@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shuffle Your Spreadsheet</title>
+
+    <!-- MDUI CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/css/mdui.min.css"
+        crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.cnpmjs.org/css2?family=Roboto+Mono" rel="stylesheet" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="shuffle-spreadsheet-style.css">
+
+</head>
+
+<body
+    class="mdui-appbar-with-toolbar mdui-theme-primary-indigo mdui-theme-accent-pink mdui-theme-layout-dark mdui-loaded">
+    <header class="mdui-appbar mdui-appbar-fixed mdui-color-grey-900">
+        <div class="mdui-toolbar">
+            <span class="mdui-btn mdui-btn-icon mdui-ripple mdui-ripple-white"
+                mdui-tooltip="{content: '設置菜單'}"
+                id = "setting-btn">
+                <i class="mdui-icon material-icons">settings</menu></i>
+            </span>
+
+            <a href="./shuffle-spreadsheet.html" class="mdui-typo-headline">表單打亂工具</a>
+
+            <!-- <a href="./help.html" class="mdui-typo-title">
+                <i class="mdui-icon material-icons">&#xe85d;</i>
+                説明
+            </a> -->
+
+            <div class="mdui-toolbar-spacer"></div>
+
+            <a href="https://github.com/DaweiTao/mongodb-query-optimizer-evaluation-tool" target="_blank"
+                class="mdui-btn mdui-btn-icon mdui-ripple mdui-ripple-white" mdui-tooltip="{content: '前往作者 Github'}">
+                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 36 36"
+                    enable-background="new 0 0 36 36" xml:space="preserve" class="mdui-icon"
+                    style="width: 24px;height:24px;">
+                    <path fill-rule="evenodd" clip-rule="evenodd" fill="#ffffff" d="M18,1.4C9,1.4,1.7,8.7,1.7,17.7c0,7.2,4.7,13.3,11.1,15.5
+              c0.8,0.1,1.1-0.4,1.1-0.8c0-0.4,0-1.4,0-2.8c-4.5,1-5.5-2.2-5.5-2.2c-0.7-1.9-1.8-2.4-1.8-2.4c-1.5-1,0.1-1,0.1-1
+              c1.6,0.1,2.5,1.7,2.5,1.7c1.5,2.5,3.8,1.8,4.7,1.4c0.1-1.1,0.6-1.8,1-2.2c-3.6-0.4-7.4-1.8-7.4-8.1c0-1.8,0.6-3.2,1.7-4.4
+              c-0.2-0.4-0.7-2.1,0.2-4.3c0,0,1.4-0.4,4.5,1.7c1.3-0.4,2.7-0.5,4.1-0.5c1.4,0,2.8,0.2,4.1,0.5c3.1-2.1,4.5-1.7,4.5-1.7
+              c0.9,2.2,0.3,3.9,0.2,4.3c1,1.1,1.7,2.6,1.7,4.4c0,6.3-3.8,7.6-7.4,8c0.6,0.5,1.1,1.5,1.1,3c0,2.2,0,3.9,0,4.5
+              c0,0.4,0.3,0.9,1.1,0.8c6.5-2.2,11.1-8.3,11.1-15.5C34.3,8.7,27,1.4,18,1.4z"></path>
+                </svg>
+            </a>
+
+        </div>
+    </header>
+
+    <div class="mdui-drawer mdui-color-grey-900" id="left-drawer">
+        <form action="">
+            <div class="mdui-container mdui-m-t-2">
+                <div class="mdui-card mdui-hoverable mdui-color-grey-900">
+                    <div class="mdui-typo-title mdui-ripple-white"><i class="mdui-icon material-icons setting-icon">&#xe5cc;</i>打亂選項</div>
+    
+                    <div class="mdui-container" id="radio-group">
+                        <div class="mdui-container">
+                            <label class="mdui-radio" mdui-tooltip="{content: '竪向打亂', position: 'right'}">
+                                <input type="radio" name="shuffle-option" id="shuffle-col" value="col" checked required>
+                                <i class="mdui-radio-icon"></i>
+                                僅打亂列
+                            </label>
+                        </div>
+        
+                        <div class="mdui-container">
+                            <label class="mdui-radio" mdui-tooltip="{content: '橫向打亂', position: 'right'}">
+                                <input type="radio" name="shuffle-option" id="shuffle-row" value="row">
+                                <i class="mdui-radio-icon"></i>
+                                僅打亂行
+                            </label>
+                        </div>
+        
+                        <div class="mdui-container">
+                            <label class="mdui-radio">
+                                <input type="radio" name="shuffle-option" id="shuffle-all" value="all">
+                                <i class="mdui-radio-icon"></i>
+                                打乱行與列
+                            </label>
+                        </div>
+                    </div>
+    
+                </div>
+            </div>
+
+            <div class="mdui-container mdui-m-t-2">
+                <div class="mdui-card mdui-hoverable mdui-color-grey-900">
+    
+                    <div class="mdui-typo-title mdui-ripple-white"><i class="mdui-icon material-icons setting-icon">&#xe5cc;</i>排除指定行與列</div>
+    
+                    <div class="mdui-container" id="input-group">
+                        <div class="mdui-textfield mdui-textfield-floating-label mdui-p-t-1"
+                            mdui-tooltip="{content: '若无需排除，请留空', position: 'right'}">
+                            <label class="mdui-textfield-label">排除行 (例: 1,2,3)</label>
+                            <input class="mdui-textfield-input" type="text" id="exclude-row"/>
+                        </div>
+        
+                        <div class="mdui-textfield mdui-textfield-floating-label mdui-p-t-1"
+                            mdui-tooltip="{content: '若无需排除，请留空', position: 'right'}">
+                            <label class="mdui-textfield-label">排除列 (例: 1,2,3)</label>
+                            <input class="mdui-textfield-input" type="text" id="exclude-col"/>
+                        </div>
+                    </div>
+    
+                </div>    
+                
+            </div>
+        </form>
+
+        <div class="mdui-container mdui-m-t-3">
+            <button type="mdui-btn" class="mdui-btn mdui-center mdui-color-theme-accent mdui-ripple" id="confirm-setting">應用設置</button>
+        </div>
+    </div>
+
+
+    <main class="mdui-container mdui-m-t-3">
+
+        <div class="mdui-panel" mdui-panel id="panel">
+            <div class="mdui-panel-item" id="panel-0">
+                <div class="mdui-panel-item-header"  id="panel-0-header">
+                    <div class="mdui-panel-item-title">選擇表單</div>
+                    <i class="mdui-panel-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+                </div>
+                
+                <div class="mdui-panel-item-body">
+                    <span >
+                        <i class="mdui-icon material-icons mdui-m-r-1">&#xe8b6;</i>
+                        <label class="mdui-btn mdui-color-theme-accent mdui-ripple mdui-m-r-1" for="file">
+                            瀏覽本地文件
+                        </label>
+                        <input class="mdui-btn" type="file" name="exfile" id="file" accept=".csv,.xlsx" style="display:none;" onchange="showFile(this)">
+                    </span>
+                    
+                    <span>
+                        <i class="mdui-icon material-icons mdui-m-r-1">&#xe043;</i>
+                        <button type="mdui-btn" class="mdui-btn mdui-color-theme-accent mdui-ripple" id="shuffle-btn" onclick="shuffleSpreadSheet()">打亂</button>
+                    </span>
+                    
+                    <!-- <div class="mdui-panel-item-actions">
+                        <button class="mdui-btn mdui-ripple " mdui-panel-item-close>摺叠</button>
+                    </div> -->
+                </div>                    
+            </div>
+
+            <div class="mdui-panel-item" id="panel-1">
+                <div class="mdui-panel-item-header" id="panel-1-header">
+                    <div class="mdui-panel-item-title">檢視原表</div>
+                    <i class="mdui-panel-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+                </div>
+                
+                <div class="mdui-panel-item-body" >
+                    <div class="mdui-table-fluid" id="excelFile" style="display: none;"></div>
+                </div>                
+            </div>
+
+            <div class="mdui-panel-item" id="panel-2">
+                <div class="mdui-panel-item-header" id="panel-2-header">
+                    <div class="mdui-panel-item-title">預覽結果</div>
+                    <i class="mdui-panel-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+                </div>
+                
+                <div class="mdui-panel-item-body">
+                    <div class="mdui-table-fluid" id="shuffle-table" style="display: none;"></div>
+                </div>                
+            </div>
+        </div>
+        
+    </main>
+
+    <!-- <div class="mdui-bottom-nav">
+        <h2 class="mdui-typo-title">程序说明</h2>
+        <ul>
+            <li>从Excel导出/保存表格时请选择xlsx格式</li>
+            <li>程序不会改动原表格文件</li>
+            <li>输出结果将保存到目标文件的同级目录</li>
+            <li>输出文件名为&lt;原文件名-shuffled.xlsx&gt;</li>
+        </ul>
+    </div> -->
+
+    
+
+    <!-- MDUI JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/js/mdui.min.js" crossorigin="anonymous"></script>
+
+    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+    <!-- my script -->
+    <script src="shuffle-app.js"></script>
+</body>
+
+</html>
