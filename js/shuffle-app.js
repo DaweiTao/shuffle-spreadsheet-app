@@ -1,4 +1,5 @@
 let originalTable = null;
+let shuffledTable = null;
 let isShuffled = false;
 let panel = new mdui.Panel('#panel');
 // panel.close("all")
@@ -233,6 +234,7 @@ function shuffleSpreadSheet() {
     document.getElementById("shuffle-table").style.display = 'block';
     document.getElementById("shuffle-table").innerHTML = resultTableHtml;
     panel.open(2);
+    shuffledTable = resultTable;
     isShuffled = true;
     return;
 }
@@ -298,5 +300,29 @@ function shuffleRow(table){
     }
 
     return resultTable;
+}
+
+
+function resetTable(){
+    if (originalTable == null){
+        mdui.dialog({
+            title: "操作失敗", 
+            content: "表格無效! 請選擇有效Excel表格 *.csv 或是 *.xlsx",
+            buttons: [
+                {
+                  text: '确认',
+                }
+            ]
+        })
+        return;
+    }
+
+    // shuffledTable = originalTable;
+    // generate html element
+    let shuffledTableHtml = generateHtmlTable(originalTable);
+    document.getElementById("shuffle-table").style.display = 'block';
+    document.getElementById("shuffle-table").innerHTML = shuffledTableHtml;
+    panel.open(2);
+    mdui.snackbar({message:"表单已重置！", timeout:4000});
 }
 
