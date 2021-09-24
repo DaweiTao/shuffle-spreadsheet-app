@@ -110,6 +110,57 @@ function generateHtmlTable(dataTable) {
 }
 
 
+function generateGraggableHtmlTable(dataTable) {
+    tableHtml = "<table class=\"mdui-table\"><tbody>";
+
+    cellIndex = 0;
+    for (let r = 0; r < dataTable.length; r++){
+        tableHtml += "<tr>";
+        for(let c = 0; c < dataTable[0].length; c++){
+            let element = dataTable[r][c];
+            if (typeof(element) == "string"){
+                element = element.replace(/(?:\\[rn]|[\r\n]+)+/g, "<br>");
+            }
+
+            cellId = `"cell-${cellIndex}"`;
+            tableHtml += `<td 
+                id=${cellId} 
+                draggable="true"
+                ondragstart="drag(event)"
+                ondrop="drop(event)" 
+                ondragover="allowDrop(event)">
+                    ${element}
+                </td>`;
+            cellIndex++;
+        } 
+        tableHtml += "</tr>";
+    }
+
+    tableHtml += "</tbody></table>";
+    return tableHtml;
+}
+
+function allowDrop(ev) {
+    console.log(`Hover over: #${ev.target.id} (content: ${document.getElementById (ev.target.id).innerText})`);
+    ev.preventDefault();
+  }
+  
+function drag(ev) {
+    console.log(`Dragging: #${ev.target.id} (content: ${document.getElementById (ev.target.id).innerText})`);
+    ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    let fromCell = ev.dataTransfer.getData("text");
+    let thisCell = ev.target.id;
+    console.log(`Replacing: ${document.getElementById(thisCell).innerText} with ${document.getElementById(fromCell).innerText}`);
+    let textOfThisCell = document.getElementById(thisCell).innerText;
+    document.getElementById(thisCell).innerText = document.getElementById(fromCell).innerText;
+    document.getElementById(fromCell).innerText = textOfThisCell;
+}
+
+
 function getDataFromJson(jsonData) {
     console.log("Json data:");
     console.log(jsonData);
@@ -229,7 +280,7 @@ function shuffleSpreadSheet() {
     }
 
     // generate html element
-    resultTableHtml = generateHtmlTable(resultTable);
+    resultTableHtml = generateGraggableHtmlTable(resultTable);
     console.log(resultTable);
     document.getElementById("shuffle-table").style.display = 'block';
     document.getElementById("shuffle-table").innerHTML = resultTableHtml;
@@ -319,7 +370,7 @@ function resetTable(){
 
     // shuffledTable = originalTable;
     // generate html element
-    let shuffledTableHtml = generateHtmlTable(originalTable);
+    let shuffledTableHtml = generateGraggableHtmlTable(originalTable);
     document.getElementById("shuffle-table").style.display = 'block';
     document.getElementById("shuffle-table").innerHTML = shuffledTableHtml;
     panel.open(2);
